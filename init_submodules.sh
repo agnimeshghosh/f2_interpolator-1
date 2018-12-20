@@ -5,7 +5,7 @@ git submodule update --init
 
 #Publish local the ones you need
 for module in clkdiv_n_2_4_8 halfband_interpolator cic3_interpolator; do
-    cd $DIR/${MODULE}
+    cd $DIR/$module
     sbt publishLocal
 done
 
