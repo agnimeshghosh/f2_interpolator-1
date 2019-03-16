@@ -64,7 +64,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
     
     //Reset initializations
     val hb1reset = Wire(Bool())
-    hb1reset    :=reset.toBool
+    hb1reset    :=reset.asBool
     val hb1 = withClockAndReset(io.clocks.hb1clock_low,hb1reset)(Module( 
         new halfband_interpolator( 
             n=n, resolution=resolution,coeffs=halfband_BW_045_N_40.H.map(_ * (math.pow(2,coeffres-1)-1)).map(_.toInt)
@@ -73,7 +73,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
 
 
     val hb2reset = Wire(Bool())
-    hb2reset     :=reset.toBool
+    hb2reset     :=reset.asBool
     val hb2 = withClockAndReset(io.clocks.hb1clock_high,hb2reset)(Module( 
         new halfband_interpolator( 
             n=n, resolution=resolution,coeffs=halfband_BW_0225_N_8.H.map(_ * (math.pow(2,coeffres-1)-1)).map(_.toInt)
@@ -81,7 +81,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
     ))
 
     val hb3reset = Wire(Bool())
-    hb3reset     :=reset.toBool
+    hb3reset     :=reset.asBool
     val hb3 = withClockAndReset(io.clocks.hb2clock_high,hb3reset)(Module(
         new halfband_interpolator(
             n=n, resolution=resolution,coeffs=halfband_BW_01125_N_6.H.map(_ * (math.pow(2,coeffres-1)-1)).map(_.toInt)
@@ -121,7 +121,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
         }
         is(two) {
             hb1.io.iptr_A    :=io.iptr_A
-            hb1reset         :=reset.toBool
+            hb1reset         :=reset.asBool
             hb2reset         :=true.B
             hb3reset         :=true.B
             cic3reset        :=true.B 
@@ -129,8 +129,8 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
         }
         is(four) {
             hb1.io.iptr_A    :=io.iptr_A
-            hb1reset         :=reset.toBool
-            hb2reset         :=reset.toBool
+            hb1reset         :=reset.asBool
+            hb2reset         :=reset.asBool
             hb3reset         :=true.B
             cic3reset        :=true.B 
             hb2.io.iptr_A    :=hb1.io.Z
@@ -138,9 +138,9 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
         }
         is(eight) {
             hb1.io.iptr_A    :=io.iptr_A
-            hb1reset         :=reset.toBool
-            hb2reset         :=reset.toBool
-            hb3reset         :=reset.toBool
+            hb1reset         :=reset.asBool
+            hb2reset         :=reset.asBool
+            hb3reset         :=reset.asBool
             cic3reset        :=io.controls.reset_loop 
             hb2.io.iptr_A    :=hb1.io.Z
             hb3.io.iptr_A    :=hb2.io.Z
@@ -148,9 +148,9 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
         }
         is(more) {
             hb1.io.iptr_A    :=io.iptr_A
-            hb1reset         :=reset.toBool
-            hb2reset         :=reset.toBool
-            hb3reset         :=reset.toBool
+            hb1reset         :=reset.asBool
+            hb2reset         :=reset.asBool
+            hb3reset         :=reset.asBool
             cic3reset        :=io.controls.reset_loop
             hb2.io.iptr_A    :=hb1.io.Z
             hb3.io.iptr_A    :=hb2.io.Z
