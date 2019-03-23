@@ -43,8 +43,8 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
 
     //State definitions
     val bypass :: two :: four :: eight :: more :: Nil = Enum(5)
-    //Select state
-    val state=withClock(io.clocks.hb1clock_low) (RegInit(bypass))
+    //Select state with the fastest master clock
+    val state=RegInit(bypass)
     
     //Decoder for the modes
     when(io.controls.mode===0.U){
