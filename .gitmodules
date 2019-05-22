@@ -1,9 +1,9 @@
 [submodule "halfband_interpolator"]
 	path = halfband_interpolator
-	url = git@bwrcrepo.eecs.berkeley.edu:dsp-blocks/chisel/halfband_interpolator.git
+	url = git@github.com:Chisel-blocks/halfband_interpolator.git
 [submodule "cic3_interpolator"]
 	path = cic3_interpolator
-	url = git@bwrcrepo.eecs.berkeley.edu:dsp-blocks/chisel/cic3_interpolator.git
+	url = git@github.com:Chisel-blocks/cic3_interpolator.git
 [submodule "clkdiv_n_2_4_8"]
 	path = clkdiv_n_2_4_8
-	url = git@bwrcrepo.eecs.berkeley.edu:dsp-blocks/chisel/clkdiv_n_2_4_8.git
+	url = git@github.com:Chisel-blocks/clkdiv_n_2_4_8.git
