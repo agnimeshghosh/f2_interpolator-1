@@ -2,9 +2,10 @@
 #Init submodules in this dir, if any
 DIR="$( cd "$( dirname $0 )" && pwd )"
 git submodule update --init
+git submodule sync
 
 #Publish local the ones you need
-for module in clkdiv_n_2_4_8 halfband_interpolator cic3_interpolator; do
+for module in halfband_interpolator cic3_interpolator; do
     cd $DIR/$module
     sbt publishLocal
 done
