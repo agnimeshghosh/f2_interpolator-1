@@ -1,5 +1,5 @@
 //These are the ahlf-band filters for the F2 decimator
-package f2_interpolator
+package interpolator
 import chisel3._
 import chisel3.util._
 import chisel3.experimental.{withClock, withClockAndReset}
@@ -37,7 +37,7 @@ class f2_interpolator_io(val n: Int, val resolution: Int, val gainbits: Int) ext
         val Z               = Output(DspComplex(SInt(n.W), SInt(n.W)))
 }
 
-class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits: Int=10) extends Module {
+class interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits: Int=10) extends Module {
     val io = IO(new f2_interpolator_io(n=n,resolution=resolution,gainbits=gainbits)
     )
 
@@ -89,7 +89,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
     ))
 
     val cic3reset = Wire(Bool())
-    cic3reset     :=io.controls.reset_loop
+    cic3reset     := reset.toBool
     val cic3= withClockAndReset(io.clocks.hb3clock_high,cic3reset)(Module(
         new cic3_interpolator(n=n,resolution=resolution,gainbits=gainbits)
     ))
@@ -141,7 +141,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
             hb1reset         :=reset.toBool
             hb2reset         :=reset.toBool
             hb3reset         :=reset.toBool
-            cic3reset        :=io.controls.reset_loop 
+            cic3reset        :=true.B
             hb2.io.iptr_A    :=hb1.io.Z
             hb3.io.iptr_A    :=hb2.io.Z
             io.Z             :=hb3.io.Z
@@ -151,7 +151,7 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
             hb1reset         :=reset.toBool
             hb2reset         :=reset.toBool
             hb3reset         :=reset.toBool
-            cic3reset        :=io.controls.reset_loop
+            cic3reset        :=reset.toBool
             hb2.io.iptr_A    :=hb1.io.Z
             hb3.io.iptr_A    :=hb2.io.Z
             cic3.io.iptr_A   :=hb3.io.Z
@@ -160,9 +160,9 @@ class f2_interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits
     }
 }
 //This is the object to provide verilog
-object f2_interpolator extends App {
+object interpolator extends App {
   //Convert coeffs to integers with 16 bit resolution
   //val coeffres=16
-  chisel3.Driver.execute(args, () => new f2_interpolator() )
+  chisel3.Driver.execute(args, () => new interpolator() )
 }
 
