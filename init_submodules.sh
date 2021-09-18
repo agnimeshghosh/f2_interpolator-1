@@ -5,7 +5,7 @@ git submodule update --init
 git submodule sync
 
 #Publish local the ones you need
-for module in halfband_interpolator cic3_interpolator; do
+for module in halfband_interpolator cic3_interpolator, clock_div; do
     cd $DIR/$module
     sbt publishLocal
 done
