@@ -4,3 +4,7 @@
 [submodule "cic3_interpolator"]
 	path = cic3_interpolator
 	url = git@github.com:Chisel-blocks/cic3_interpolator.git
+[submodule "clock_div"]
+	path = clock_div
+	url = git@bubba.ecdl.hut.fi:hattrick/chisel_blocks/clock_div.git
+	branch = dev_top
