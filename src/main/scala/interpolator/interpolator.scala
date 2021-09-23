@@ -125,7 +125,7 @@ class interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits: I
             hb2reset         :=true.B
             hb3reset         :=true.B
             cic3reset        :=true.B 
-            io.Z             :=hb1.io.Z
+            io.Z             :=withClock(io.clocks.hb1clock_high) (RegNext(hb1.io.Z))
         }
         is(four) {
             hb1.io.iptr_A    :=io.iptr_A
@@ -134,7 +134,7 @@ class interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits: I
             hb3reset         :=true.B
             cic3reset        :=true.B 
             hb2.io.iptr_A    :=hb1.io.Z
-            io.Z             :=hb2.io.Z
+            io.Z             :=withClock(io.clocks.hb2clock_high) (RegNext(hb2.io.Z))
         }
         is(eight) {
             hb1.io.iptr_A    :=io.iptr_A
@@ -144,7 +144,7 @@ class interpolator (n: Int=16, resolution: Int=32, coeffres: Int=16, gainbits: I
             cic3reset        :=true.B
             hb2.io.iptr_A    :=hb1.io.Z
             hb3.io.iptr_A    :=hb2.io.Z
-            io.Z             :=hb3.io.Z
+            io.Z             :=withClock(io.clocks.hb3clock_high) (RegNext(hb3.io.Z))
         }
         is(more) {
             hb1.io.iptr_A    :=io.iptr_A
